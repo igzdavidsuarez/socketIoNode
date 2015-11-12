@@ -2,6 +2,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var request = require('request');
+var config = require('config');
 
 server.listen(3000);
 
@@ -18,7 +19,7 @@ io.on('connection', function(socket){
 setInterval(updateData, 500);
 
 function updateData(){
-    request('http://192.168.130.237:8080/api/v1/cluster/summary', function(err, result, body) {
+    request(config.get('nimbus.host') + ":" + config.get('nimbus.port') + '/api/v1/cluster/summary', function(err, result, body) {
         if (err) return Error(err);
 
         var nimbusUptime = JSON.parse(body).nimbusUptime;
