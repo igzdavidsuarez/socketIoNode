@@ -12,16 +12,36 @@
     #messages { list-style-type: none; margin: 0; padding: 0; }
     #messages li { padding: 5px 10px; }
     #messages li:nth-child(odd) { background: #eee; }
+    .marker { border:solid; }
   </style>
 </head>
 <body>
-<ul id="messages"></ul>
+<div class="marker" id="bolt1"></div>
+<div class="marker" id="bolt2"></div>
+<div class="marker" id="bolt3"></div>
+<div class="marker" id="bolt4"></div>
+<div class="marker" id="bolt5"></div>
+<div class="marker" id="bolt6"></div>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
 <script>
   var socket = io.connect('http://localhost:3000');
   socket.on('updateData', function (data) {
-    $('#messages').append($('<li>').text(data));
+    console.log(data)
+    var bolt1 = data[0];
+    var bolt2 = data[1];
+    var bolt3 = data[2];
+    var bolt4 = data[3];
+    var bolt5 = data[4];
+    var bolt6 = data[5];
+
+    $('#bolt1').text(bolt1.processLatency);
+    $('#bolt2').text(bolt2.processLatency);
+    $('#bolt3').text(bolt3.processLatency);
+    $('#bolt4').text(bolt4.processLatency);
+    $('#bolt5').text(bolt5.processLatency);
+    $('#bolt6').text(bolt6.processLatency);
+
   });
 </script>
 </body>
